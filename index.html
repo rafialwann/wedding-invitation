@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Wedding of Cyndi & Rafi</title>
+  <title>The Wedding Celebration</title>
+
+  <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-dark: #0f1012;
+      --card-bg: #17181c;
+      --gold-primary: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+      --gold-muted: #9e8a5a;
+      --text-white: #f5f5f7;
+      --text-gray: #9ba1a6;
+      --border-dark: rgba(212, 175, 55, 0.2);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,149 +30,341 @@
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #f7f5f0;
-      color: #333;
+      background-color: #08080a;
+      color: var(--text-white);
       display: flex;
       justify-content: center;
-      padding: 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .container {
+    /* Container Tampilan HP */
+    .app-viewport {
       width: 100%;
-      max-width: 420px;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 36px 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      max-width: 440px;
+      background-color: var(--bg-dark);
+      min-height: 100vh;
+      position: relative;
+      padding: 40px 20px 80px 20px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+      border-left: 1px solid rgba(255, 255, 255, 0.05);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Cover Layar Penuh */
+    .cover-overlay {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 440px;
+      height: 100%;
+      background: radial-gradient(circle at center, #1b1c22 0%, #0a0b0d 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 30px;
       text-align: center;
-      border: 1px solid #e8e4dc;
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.9s ease;
     }
 
-    .subtitle {
+    .cover-overlay.hidden {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gold-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      letter-spacing: 1px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 14px 0;
+      line-height: 1.2;
+    }
+
+    .sub-tag {
       font-size: 11px;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      color: #8c827a;
-      margin-bottom: 12px;
+      color: var(--gold-muted);
     }
 
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 28px;
-      color: #2b2b2b;
-      margin-bottom: 24px;
-      font-weight: 700;
-    }
-
-    .divider {
-      width: 40px;
-      height: 2px;
-      background-color: #d4af37;
-      margin: 0 auto 24px;
-    }
-
-    .guest-box {
-      background-color: #fbf9f5;
-      border: 1px dashed #dcd6cd;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 28px;
-    }
-
-    .guest-box p {
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #0b0c0e;
+      font-weight: 600;
       font-size: 12px;
-      color: #777;
-      margin-bottom: 6px;
-    }
-
-    .guest-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: #2b2b2b;
-    }
-
-    .event-card {
-      margin-bottom: 24px;
-      padding: 16px;
-      background: #fafafa;
-      border-radius: 8px;
-    }
-
-    .event-title {
-      font-family: 'Cinzel', serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: #444;
-      margin-bottom: 6px;
-    }
-
-    .event-time {
-      font-size: 13px;
-      color: #666;
-    }
-
-    .btn {
-      display: inline-block;
-      width: 100%;
-      background-color: #2b2b2b;
-      color: #fff;
-      text-decoration: none;
-      padding: 12px 0;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s ease;
-      cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 40px;
       border: none;
-    }
-
-    .btn:hover {
-      background-color: #444;
-    }
-
-    footer {
+      cursor: pointer;
       margin-top: 30px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-gold:active {
+      transform: scale(0.96);
+    }
+
+    /* Box Tamu */
+    .guest-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-align: center;
+      margin: 20px 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .guest-card span {
       font-size: 11px;
-      color: #aaa;
+      color: var(--text-gray);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .guest-card h3 {
+      font-size: 18px;
+      color: var(--text-white);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* Countdown Grid */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 30px 0;
+    }
+
+    .countdown-item {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 14px 4px;
+      text-align: center;
+    }
+
+    .countdown-val {
+      font-size: 20px;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .countdown-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-gray);
+      margin-top: 4px;
+    }
+
+    /* Card Acara */
+    .event-box {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .event-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .event-box p {
+      font-size: 13px;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+
+    .btn-outline-gold {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 20px;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-size: 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+    }
+
+    /* Floating Music Button */
+    .music-btn {
+      position: fixed;
+      bottom: 24px;
+      right: calc(50% - 200px);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(23, 24, 28, 0.8);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    @media (max-width: 440px) {
+      .music-btn {
+        right: 20px;
+      }
+    }
+
+    .spin {
+      animation: rotateDisk 4s linear infinite;
+    }
+
+    @keyframes rotateDisk {
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <p class="subtitle">The Wedding Celebration of</p>
-    <h1>Cyndi &amp; Rafi</h1>
-    <div class="divider"></div>
+  <!-- Audio -->
+  <audio id="audio" loop>
+  <source src="https://ia800804.us.archive.org/24/items/GenSyD/Train%20-%20Marry%20me.mp3" type="audio/mp3">
+</audio>
 
-    <div class="guest-box">
-      <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-      <div class="guest-name" id="guest-name">Tamu Undangan</div>
+  <!-- Cover Pop-up -->
+  <div class="cover-overlay" id="cover">
+    <p class="sub-tag">The Wedding Celebration</p>
+    <h1 class="gold-title">Romeo &amp; Juliet</h1>
+    <div class="guest-card" style="width: 100%; max-width: 280px;">
+      <span>Kepada Yth.</span>
+      <h3 id="cover-guest">Tamu Undangan</h3>
+    </div>
+    <button class="btn-gold" id="btn-open">Buka Undangan</button>
+  </div>
+
+  <!-- Tombol Musik Mengambang -->
+  <div class="music-btn" id="music-toggle" style="display: none;">
+    <svg id="music-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <circle cx="12" cy="12" r="3"></circle>
+    </svg>
+  </div>
+
+  <!-- Container Konten -->
+  <div class="app-viewport">
+    <header style="text-align: center; margin-bottom: 30px;">
+      <p class="sub-tag">Save The Date</p>
+      <h2 class="gold-title">Romeo &amp; Juliet</h2>
+      <p style="font-size: 13px; color: var(--text-gray);">Minggu, 20 Desember 2026</p>
+    </header>
+
+    <div class="guest-card">
+      <span>Undangan Khusus Untuk</span>
+      <h3 id="main-guest">Tamu Undangan</h3>
     </div>
 
-    <div class="event-card">
-      <div class="event-title">Akad Nikah</div>
-      <div class="event-time">Sabtu, 09 Oktober 2027<br>08.00 - 10.00 WIB</div>
+    <!-- Countdown Timer -->
+    <div class="countdown-grid">
+      <div class="countdown-item">
+        <span class="countdown-val" id="days">0</span>
+        <span class="countdown-lbl">Hari</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-val" id="hours">0</span>
+        <span class="countdown-lbl">Jam</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-val" id="minutes">0</span>
+        <span class="countdown-lbl">Menit</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-val" id="seconds">0</span>
+        <span class="countdown-lbl">Detik</span>
+      </div>
     </div>
 
-    <div class="event-card">
-      <div class="event-title">Resepsi</div>
-      <div class="event-time">Sabtu, 09 Oktober 2027<br>10.00 - 13.00 WIB</div>
+    <!-- Acara 1 -->
+    <div class="event-box">
+      <h4>Akad Nikah</h4>
+      <p>Pukul 08.00 - 10.00 WIB<br>Grand Ballroom Palace<br>Jl. Mawar No. 45, Jakarta</p>
+      <a href="https://maps.google.com" target="_blank" class="btn-outline-gold">📍 Buka Peta Lokasi</a>
     </div>
 
-    <a href="https://maps.google.com" target="_blank" class="btn">📍 Buka Google Maps</a>
-
-    <footer>
-      Kami yang berbahagia,<br>Keluarga Besar Kedua Mempelai
-    </footer>
+    <!-- Acara 2 -->
+    <div class="event-box">
+      <h4>Resepsi</h4>
+      <p>Pukul 11.00 - 14.00 WIB<br>Grand Ballroom Palace<br>Jl. Mawar No. 45, Jakarta</p>
+      <a href="https://maps.google.com" target="_blank" class="btn-outline-gold">📍 Buka Peta Lokasi</a>
+    </div>
   </div>
 
   <script>
-    // Ambil nama dari parameter URL ?to=Nama+Tamu
-    const urlParams = new URLSearchParams(window.location.search);
-    const guest = urlParams.get('to');
-    if (guest) {
-      document.getElementById('guest-name').innerText = guest;
+    // Ambil parameter nama tamu ?to=
+    const params = new URLSearchParams(window.location.search);
+    const guestName = params.get('to');
+    if (guestName) {
+      document.getElementById('cover-guest').innerText = guestName;
+      document.getElementById('main-guest').innerText = guestName;
     }
+
+    // Cover & Kontrol Musik
+    const cover = document.getElementById('cover');
+    const btnOpen = document.getElementById('btn-open');
+    const audio = document.getElementById('audio');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicIcon = document.getElementById('music-icon');
+    let playing = false;
+
+    btnOpen.addEventListener('click', () => {
+      cover.classList.add('hidden');
+      musicToggle.style.display = 'flex';
+      audio.play().then(() => {
+        playing = true;
+        musicIcon.classList.add('spin');
+      }).catch(err => console.log('Audio error:', err));
+    });
+
+    musicToggle.addEventListener('click', () => {
+      if (playing) {
+        audio.pause();
+        musicIcon.classList.remove('spin');
+      } else {
+        audio.play();
+        musicIcon.classList.add('spin');
+      }
+      playing = !playing;
+    });
+
+    // Countdown
+    const eventTime = new Date("December 20, 2026 08:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = eventTime - now;
+      if (diff > 0) {
+        document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+      }
+    }, 1000);
   </script>
 </body>
 </html>
